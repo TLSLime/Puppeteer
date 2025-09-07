@@ -1,0 +1,153 @@
+# 测试文档自动化配置
+profile: test_doc
+description: "测试文档自动化 - 验证基础功能"
+version: "1.0"
+
+# 屏幕区域设置
+screen_region: [0, 0, 1920, 1080]
+
+# 窗口管理配置
+window:
+  enabled: true
+  title: "test_doc.txt"  # 目标窗口标题
+  file_path: "test_doc.txt"  # 文件路径
+  program_path: ""  # 指定程序路径（可选）
+  file_type: "txt"  # 文件类型
+  process_names: ["notepad.exe", "记事本"]  # 目标进程名称列表
+  exact_match: false  # 模糊匹配
+  mouse_position: "center"  # 鼠标位置
+  auto_activate: true  # 自动激活窗口
+  auto_open: true  # 自动打开文件
+  activation_delay: 2.0  # 激活延迟
+  fail_on_open_error: true  # 打开失败时是否终止程序
+
+# 按键映射
+keymap:
+  enter: 'enter'
+  space: 'space'
+  tab: 'tab'
+  backspace: 'backspace'
+  delete: 'delete'
+  home: 'home'
+  end: 'end'
+  ctrl_a: 'ctrl+a'
+  ctrl_c: 'ctrl+c'
+  ctrl_v: 'ctrl+v'
+  ctrl_s: 'ctrl+s'
+
+# 模板配置（用于检测文档状态）
+templates:
+  document_ready: []
+  text_cursor: []
+
+# ROI配置
+rois:
+  text_area:
+    x: 100
+    y: 200
+    width: 800
+    height: 600
+
+# 检测配置
+detection:
+  scene: "document"
+  templates:
+    document_ready: []
+    text_cursor: []
+  self_status: {}
+
+# 宏定义 - 自动化操作序列
+macros:
+  # 基础文本输入测试
+  basic_text_test:
+    - "type: 这是自动化程序写入的测试文本"
+    - "key: enter"
+    - "type: 当前时间: "
+    - "key: ctrl+s"  # 保存文档
+    
+  # 鼠标点击测试
+  mouse_click_test:
+    - "click: 400,300"  # 点击文档中心
+    - "type: 鼠标点击测试完成"
+    - "key: enter"
+    
+  # 键盘功能测试
+  keyboard_test:
+    - "key: home"  # 移动到行首
+    - "key: ctrl+a"  # 全选
+    - "key: ctrl+c"  # 复制
+    - "key: end"  # 移动到行尾
+    - "key: enter"
+    - "key: ctrl+v"  # 粘贴
+    - "key: enter"
+    
+  # 完整功能测试
+  full_test:
+    - "type: === Puppeteer自动化测试开始 ==="
+    - "key: enter"
+    - "type: 1. 文本输入功能: 正常"
+    - "key: enter"
+    - "type: 2. 鼠标操作功能: 正常"
+    - "key: enter"
+    - "type: 3. 键盘操作功能: 正常"
+    - "key: enter"
+    - "type: 4. 窗口管理功能: 正常"
+    - "key: enter"
+    - "type: 5. 安全机制功能: 正常"
+    - "key: enter"
+    - "type: === 测试完成 ==="
+    - "key: enter"
+    - "key: ctrl+s"  # 保存文档
+
+  # 复杂测试 - 清空文件并输入新内容
+  complex_test:
+    # 第一步：清空文件内容
+    - "key: ctrl+a"      # 全选所有内容
+    - "key: delete"      # 删除所有内容
+    - "key: ctrl+a"      # 再次全选确保清空
+    - "key: delete"      # 再次删除确保清空
+    
+    # 第二步：输入新内容
+    - "type: 这是一段自动程序生成的内容，用于测试程序是否正常，abcABC123!@#$%^&()_+==.`"
+    - "key: enter"       # 回车
+    - "key: enter"       # 再回车（空行）
+    - "key: space"       # 空格
+    - "type: 完成测试！"
+    
+    # 第三步：保存文件
+    - "key: ctrl+s"      # 保存文档
+
+# 人性化参数
+humanize:
+  enabled: true
+  mouse_delay_range: [100, 200]
+  key_delay_range: [150, 250]
+  type_delay_range: [50, 100]
+
+# 控制器参数
+controller:
+  fps_limit: 2  # 降低帧率，便于观察
+  action_cooldown: 1.0  # 增加动作间隔
+  confidence_threshold: 0.8
+
+# 对话框处理配置
+dialog_handler:
+  enabled: true
+  detection_interval: 0.5
+  dialog_timeout: 10.0
+  expected_dialogs:
+    - title: "保存"
+      content: "是否保存"
+      type: "save_confirm"
+    - title: "记事本"
+      content: "文档已修改"
+      type: "save_confirm"
+    - title: "确认"
+      content: "是否保存文件"
+      type: "save_confirm"
+
+# 自动化策略
+strategy:
+  mode: "test"  # 测试模式
+  auto_execute_macro: "complex_test"  # 自动执行复杂测试
+  execution_delay: 2.0  # 执行延迟

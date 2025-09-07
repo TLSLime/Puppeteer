@@ -1,0 +1,55 @@
+# 简化测试配置 - 不需要模板文件
+profile: simple_test
+description: "简化测试配置 - 用于验证基本功能"
+version: "1.0"
+
+# 屏幕区域设置
+screen_region: [0, 0, 800, 600]
+
+# 按键映射
+keymap:
+  attack: 'q'
+  jump: 'space'
+
+# 空的模板配置 - 避免加载不存在的文件
+templates:
+  enemies: []
+  items: []
+  ui_elements: []
+
+# 空的ROI配置
+rois: {}
+
+# 简化的检测配置
+detection:
+  scene: "test"
+  templates:
+    enemies: []
+    items: []
+    ui_elements: []
+  self_status: {}
+
+# 宏定义
+macros:
+  test_combo: ["attack", "jump"]
+
+# 人性化参数
+humanize:
+  enabled: true
+  mouse_delay_range: [50, 150]
+  key_delay_range: [80, 140]
+
+# 窗口管理配置
+window:
+  enabled: true
+  title: "记事本"  # 目标窗口标题
+  exact_match: false  # 是否精确匹配标题
+  mouse_position: "center"  # 鼠标位置: center, top_left, top_right, bottom_left, bottom_right
+  auto_activate: true  # 自动激活窗口
+  activation_delay: 0.5  # 激活延迟（秒）
+
+# 控制器参数
+controller:
+  fps_limit: 5
+  action_cooldown: 0.5
+  confidence_threshold: 0.8

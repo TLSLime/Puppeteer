@@ -1,0 +1,48 @@
+[
+  {
+    "timestamp": 1757253326.7249258,
+    "type": "system",
+    "level": "INFO",
+    "message": "系统启动"
+  },
+  {
+    "timestamp": 1757253326.725071,
+    "type": "action",
+    "action": {
+      "type": "press",
+      "key": "q"
+    },
+    "result": {
+      "success": true,
+      "timestamp": 1757253326.72507
+    }
+  },
+  {
+    "timestamp": 1757253326.7251725,
+    "type": "observation",
+    "observation": {
+      "timestamp": 1757253326.7251716,
+      "scene": "test",
+      "enemies": [
+        {
+          "id": "e1",
+          "pos": [
+            100,
+            200
+          ],
+          "confidence": 0.9
+        }
+      ],
+      "items": []
+    }
+  },
+  {
+    "timestamp": 1757253326.725262,
+    "type": "error",
+    "error": "测试错误",
+    "error_type": "Exception",
+    "context": {
+      "context": "test"
+    }
+  }
+]

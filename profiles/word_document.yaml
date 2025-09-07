@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+"""
+Word文档自动化配置示例
+演示如何配置Word文档的自动化操作
+"""
+
+version: "1.0"
+
+# 屏幕区域设置
+screen_region: [0, 0, 1920, 1080]
+
+# 窗口管理配置
+window:
+  enabled: true
+  title: "测试文档.docx"  # 目标窗口标题
+  file_path: "test_document.docx"  # 文件路径
+  program_path: "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"  # Word程序路径
+  file_type: "docx"  # 文件类型
+  process_names: ["WINWORD.EXE", "Microsoft Word"]  # Word进程名称
+  exact_match: false  # 模糊匹配
+  mouse_position: "center"  # 鼠标位置
+  auto_activate: true  # 自动激活窗口
+  auto_open: true  # 自动打开文件
+  activation_delay: 3.0  # 激活延迟（Word启动较慢）
+  fail_on_open_error: true  # 打开失败时终止程序
+
+# 按键映射
+keymap:
+  enter: 'enter'
+  space: 'space'
+  ctrl: 'ctrl'
+  alt: 'alt'
+  shift: 'shift'
+  tab: 'tab'
+  escape: 'esc'
+  backspace: 'backspace'
+  delete: 'delete'
+  home: 'home'
+  end: 'end'
+  pageup: 'pageup'
+  pagedown: 'pagedown'
+  up: 'up'
+  down: 'down'
+  left: 'left'
+  right: 'right'
+  f1: 'f1'
+  f2: 'f2'
+  f3: 'f3'
+  f4: 'f4'
+  f5: 'f5'
+  f6: 'f6'
+  f7: 'f7'
+  f8: 'f8'
+  f9: 'f9'
+  f10: 'f10'
+  f11: 'f11'
+  f12: 'f12'
+
+# 模板定义
+templates:
+  # Word文档标题
+  word_title:
+    path: "assets/word_title.png"
+    threshold: 0.8
+    region: [100, 50, 800, 150]
+    
+  # Word文档内容区域
+  word_content:
+    path: "assets/word_content.png"
+    threshold: 0.8
+    region: [100, 200, 800, 600]
+
+# 宏定义
+macros:
+  # Word文档基础操作
+  word_basic_operations:
+    - "key: ctrl+a"      # 全选
+    - "type: 这是一个Word文档自动化测试"
+    - "key: enter"
+    - "key: enter"
+    - "type: 当前时间: "
+    - "key: ctrl+s"      # 保存文档
+
+  # Word文档格式化
+  word_formatting:
+    - "key: ctrl+a"      # 全选
+    - "key: ctrl+b"      # 加粗
+    - "key: ctrl+i"      # 斜体
+    - "key: ctrl+u"      # 下划线
+    - "key: ctrl+s"      # 保存
+
+  # Word文档插入内容
+  word_insert_content:
+    - "key: ctrl+end"    # 移动到文档末尾
+    - "key: enter"
+    - "type: === 插入内容 ==="
+    - "key: enter"
+    - "type: 1. 第一项内容"
+    - "key: enter"
+    - "type: 2. 第二项内容"
+    - "key: enter"
+    - "type: 3. 第三项内容"
+    - "key: enter"
+    - "key: ctrl+s"      # 保存文档
+
+# 人性化参数
+humanize:
+  enabled: true
+  mouse_delay_range: [100, 200]
+  key_delay_range: [150, 250]
+  type_delay_range: [50, 100]
+
+# 控制器参数
+controller:
+  fps_limit: 2
+  action_cooldown: 1.0
+  confidence_threshold: 0.8
+
+# 自动化策略
+strategy:
+  mode: "word_automation"
+  auto_execute_macro: "word_basic_operations"
+  execution_delay: 3.0  # Word启动需要更长时间

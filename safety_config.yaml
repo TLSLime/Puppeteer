@@ -1,0 +1,26 @@
+# Puppeteer 安全配置
+# 安全级别选项: disabled, low, medium, high
+
+# 默认安全级别
+# disabled: 完全禁用安全机制（推荐用于测试）
+# low: 仅检测紧急停止键
+# medium: 检测鼠标和键盘操作
+# high: 检测所有用户操作
+safety_level: "disabled"
+
+# 紧急停止键配置
+emergency_key: "esc"
+
+# 用户活动检测配置
+user_activity_threshold: 1.0  # 秒
+mouse_movement_threshold: 50  # 像素
+grace_period: 5.0  # 秒
+
+# 其他配置
+auto_restart: false
+log_safety_events: true
+
+# 使用说明:
+# 1. 测试时建议使用 "disabled" 级别
+# 2. 日常使用建议使用 "low" 或 "medium" 级别
+# 3. 生产环境建议使用 "high" 级别

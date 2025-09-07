@@ -1,0 +1,122 @@
+# Puppeteer 示例游戏配置文件
+# 这是一个完整的配置示例，展示了所有可用的配置选项
+
+profile: example_game
+description: "示例游戏配置 - 用于演示Puppeteer的基本功能"
+version: "1.0"
+
+# 屏幕区域设置 [x, y, width, height]
+# 设置为 [0, 0, 1920, 1080] 表示全屏，也可以指定特定区域
+screen_region: [0, 0, 1920, 1080]
+
+# 按键映射 - 定义游戏中的各种操作对应的按键
+keymap:
+  attack: 'q'           # 攻击键
+  jump: 'space'         # 跳跃键
+  move_left: 'a'        # 向左移动
+  move_right: 'd'       # 向右移动
+  move_up: 'w'          # 向上移动
+  move_down: 's'        # 向下移动
+  skill1: '1'           # 技能1
+  skill2: '2'           # 技能2
+  skill3: '3'           # 技能3
+  potion: 'h'           # 使用药水
+  inventory: 'i'        # 打开背包
+
+# 模板配置 - 定义需要识别的游戏元素
+templates:
+  enemies:              # 敌人类型
+    - "enemy1.png"      # 普通敌人
+    - "enemy2.png"      # 精英敌人
+    - "boss.png"        # 首领敌人
+  items:                # 物品类型
+    - "item1.png"       # 普通物品
+    - "item2.png"       # 稀有物品
+    - "gold.png"        # 金币
+  ui_elements:          # UI元素
+    - "health_bar.png"  # 血量条
+    - "mana_bar.png"    # 魔法条
+    - "exp_bar.png"     # 经验条
+    - "menu_button.png" # 菜单按钮
+
+# ROI区域配置 - 指定各模板的检测区域 [x, y, width, height]
+# 这可以提高检测效率，避免在全屏范围内搜索
+rois:
+  # 敌人检测区域 - 通常在游戏画面的中央区域
+  enemy1.png: [200, 200, 1000, 600]
+  enemy2.png: [200, 200, 1000, 600]
+  boss.png: [200, 200, 1000, 600]
+  
+  # 物品检测区域 - 可能出现在任何位置
+  item1.png: [0, 0, 1920, 1080]
+  item2.png: [0, 0, 1920, 1080]
+  gold.png: [0, 0, 1920, 1080]
+  
+  # UI元素检测区域 - 通常在屏幕边缘
+  health_bar.png: [50, 50, 200, 50]
+  mana_bar.png: [50, 100, 200, 50]
+  exp_bar.png: [50, 150, 200, 30]
+  menu_button.png: [1800, 50, 100, 50]
+
+# 检测配置 - 定义如何识别和处理游戏状态
+detection:
+  scene: "dungeon"      # 当前场景名称
+  
+  # 模板分组 - 按类型组织模板
+  templates:
+    enemies: ["enemy1.png", "enemy2.png", "boss.png"]
+    items: ["item1.png", "item2.png", "gold.png"]
+    ui_elements: ["health_bar.png", "mana_bar.png", "exp_bar.png", "menu_button.png"]
+  
+  # 自身状态检测 - 通过UI元素判断角色状态
+  self_status:
+    health: "health_bar.png"    # 血量状态
+    mana: "mana_bar.png"        # 魔法状态
+    exp: "exp_bar.png"          # 经验状态
+
+# 宏定义 - 定义复杂的按键序列
+macros:
+  combo1: ["attack", "jump", "attack"]                    # 基础连击
+  combo2: ["move_left", "attack", "move_right", "attack"] # 移动攻击
+  combo3: ["skill1", "attack", "skill2"]                  # 技能连击
+  escape: ["move_left", "move_left", "jump"]              # 逃跑序列
+  heal: ["potion", "potion"]                              # 治疗序列
+
+# 人性化参数 - 让操作更接近真实用户行为
+humanize:
+  enabled: true                    # 是否启用人性化
+  mouse_delay_range: [50, 150]    # 鼠标操作延迟范围(毫秒)
+  key_delay_range: [80, 140]      # 按键延迟范围(毫秒)
+  click_delay_range: [20, 80]     # 点击延迟范围(毫秒)
+  movement_jitter: 2              # 鼠标移动抖动像素
+  timing_jitter: 20               # 时间抖动(毫秒)
+
+# 控制器参数 - 控制自动化系统的行为
+controller:
+  fps_limit: 10                   # 截屏帧率限制
+  action_cooldown: 0.1            # 动作冷却时间(秒)
+  confidence_threshold: 0.8       # 模板匹配置信度阈值
+
+# 策略配置 - 定义自动化行为策略
+strategy:
+  mode: "balanced"                # 策略模式: balanced(平衡), aggressive(激进), defensive(保守)
+  priority_enemies: ["boss.png", "enemy2.png", "enemy1.png"]  # 敌人优先级
+  auto_pickup: true               # 自动拾取物品
+  auto_heal_threshold: 0.3        # 自动治疗血量阈值
+  auto_skill_cooldown: 5.0        # 技能冷却时间(秒)
+
+# 窗口管理配置
+window:
+  enabled: true
+  title: "游戏窗口"  # 目标窗口标题
+  exact_match: false  # 是否精确匹配标题
+  mouse_position: "center"  # 鼠标位置: center, top_left, top_right, bottom_left, bottom_right
+  auto_activate: true  # 自动激活窗口
+  activation_delay: 1.0  # 激活延迟（秒）
+
+# 安全设置 - 防止意外操作
+safety:
+  max_actions_per_second: 5       # 每秒最大动作数
+  emergency_stop_key: "f12"       # 紧急停止按键
+  pause_on_low_health: true       # 低血量时暂停
+  low_health_threshold: 0.2       # 低血量阈值
